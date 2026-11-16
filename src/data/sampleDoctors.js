@@ -42,7 +42,7 @@ export const doctorsDetails = [
         id: "4",
         name: "Bassey Etim",
         specialty: "Cardiology",
-        fee: 1500,
+        fee: 15000,
         bio:"Heart health checks and follow-up care.",
         location:"Ewet Housing, Uyo",
         address:"2 G-line,Ewet Housing,Uyo",

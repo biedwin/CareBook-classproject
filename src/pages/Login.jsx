@@ -1,10 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { FaStethoscope } from "react-icons/fa";
+import AuthLayout from './layouts/AuthLayout';
 
 function Login() {
   return (
-    <form action="">
+    <AuthLayout 
+    title={"Your appointments, notes and payments in one place."}
+    text={"Patients book and pay. Doctors manage their schedule. Admins keep everything safe"}>
+      <form action="">
       <h1>Welcome back</h1>
       <p className="muted">Log in to manage your appointments.</p>
       <label className="field">
@@ -13,7 +17,7 @@ function Login() {
             <div className="field">
               <div className="row between">
                 <label htmlFor="password">Password</label>
-                <Link to={"/forget-password"} className="small">Forgot password?</Link>
+                <Link to={"/forgot-password"} className="small">Forgot password?</Link>
               </div>
               <div className="password-field">
                 <input type="password" name="password" id="password" value={""} />
@@ -23,7 +27,7 @@ function Login() {
             <button className="btn btn-block">Log in</button>
             <p className="small center">
               New to CareBook?
-              <link to={"/register"}>Create an account</link>
+              <Link to={"/register"}>Create an account</Link>
             </p>
             <div className="auth-note">
               <FaStethoscope />
@@ -35,6 +39,7 @@ function Login() {
             </div>
           </label>
     </form>
+    </AuthLayout>
   )
 }
 

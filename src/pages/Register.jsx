@@ -1,9 +1,13 @@
 import React from 'react'
+import AuthLayout from './layouts/AuthLayout'
+import { Link } from 'react-router-dom'
 
 function Register() {
   return (
-    <main>
-      <form action="">
+  <AuthLayout 
+  title={"See the right doctor, without the waiting room."}
+  text={"Book a real open slot, pay securely with Paystack and keep your visit notes in one place."}>
+     <form action="">
         <h1>Create your account</h1>
         <p className="muted">Choose how you'll use CareBook.</p>
         <fieldset className="role-cards">
@@ -34,7 +38,7 @@ function Register() {
           </label>
           <label className="field">
             Phone number
-            <input type="tel" name='phone' required value={""}  placeholder='+234 703 552 789'/>
+            <input type="tel" name='phone' required value={""}  placeholder='+234 703 589 5527'/>
           </label>
           <label className="field">
             Date of Birth
@@ -57,7 +61,7 @@ function Register() {
           <p className="small center">Already have an account? <Link to="/login">Log in</Link></p>
         </div>
       </form>
-    </main>
+  </AuthLayout>
   )
 }
 

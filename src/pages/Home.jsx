@@ -20,7 +20,7 @@ function HomePage() {
     <section className="home-hero full-bleed">
       <div className='home-inner home-hero-grid'>
         <div className="hero-left">
-          <h1>See the right doctor, without the waiting room.</h1>
+          <h1>See the right doctor,without the waiting room.</h1>
           <p className="lead">
             Search approved doctors, pick a time that suits you and pay securely with Paystack.
             Your booking is confirmed as soon as the payment clears.
