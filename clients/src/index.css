@@ -533,4 +533,63 @@ input, select, textarea {
   font-size: 0.82rem;
   color: var(--muted);
 }
-  
+
+.menu-toggle {
+  display: none;
+}
+
+@media (max-width: 760px){
+  .nav-links{
+    display: none;
+  }
+  .menu-icon {
+    display: inline-grid;
+    gap: 4px;
+    width: 20px;
+  }
+
+  .menu-toggle{
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    background: #fff;
+    margin-left: auto;
+    border: 1px, solid var(--line);
+    border-radius: 8px;
+    padding: 0.45rem 0.8rem;
+    font: inherit;
+    font-weight: 600;
+    color: var(--ink);
+    cursor: pointer;
+  }
+
+  .logo {
+    display: flex;
+    justify-content: space-between;
+    justify-items: center;
+    width: 100%;
+    padding: 0px 60px;
+
+  }
+
+  .nav-links{
+    flex-direction: column;
+    display: none;
+    align-items: center;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    left: 0;
+    background: var(--soft);
+    z-index: 99;
+  }
+
+  .nav-links > div {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .nav-links.open{
+    display: flex;
+  }
+}
