@@ -2,6 +2,7 @@ import React from 'react'
 import AuthLayout from './layouts/AuthLayout'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { useState } from 'react';
+import { useAuth } from '../context/AuthContext';
 
 const START = {
   firstName: '', lastName: '', email: '', phone: '', dateOfBirth: '', password: '',
@@ -23,7 +24,6 @@ function PasswordStrength({ password }) {
 
 
 function Register() {
-
   const { register } = useAuth();
   const navigate = useNavigate();
   // The "For doctors" link opens this page with ?role=doctor already chosen.
@@ -55,19 +55,19 @@ function Register() {
   }
   return (
   <AuthLayout 
-  title={"See the right doctor, without the waiting room."}
-  text={"Book a real open slot, pay securely with Paystack and keep your visit notes in one place."}>
-     <form action="">
+  title={isDoctor ? "Reach patients who are looking for you" : "See the right doctor, without the waiting room."}
+  text={isDoctor ? "Set your own hours and fee. An admin checks your MDCN licence before your profile goes live" : "Book a real open slot, pay securely with Paystack and keep your visit notes in one place."}>
+     <form onSubmit={handleSubmit}>
         <h1>Create your account</h1>
         <p className="muted">Choose how you'll use CareBook.</p>
         <fieldset className="role-cards">
           <legend className="sr-only">I am a</legend>
-          <label className="on">
-            <input type="radio" name="role" value={"patient"} />
+          <label className={!isDoctor ? 'on' : ''}>
+            <input type="radio" name="role" value={"patient"} checked={!isDoctor} onChange={update} />
             <strong>I'm a patient</strong>
             <span>Book and pay for appointments</span>
           </label>
-           <label className="on">
+           <label className={isDoctor ? 'on' : ''} checked={isDoctor} onChange={update}>
             <input type="radio" name="role" value={"doctor"} />
             <strong>I'm a doctor</strong>
             <span>Needs admins approval</span>
@@ -76,38 +76,45 @@ function Register() {
         <div className="two-col">
           <label className="field">
             First name
-            <input type="text" name='firstname' required value={""} />
+            <input type="text" name='firstName' required value={values.firstName} onChange={update} />
           </label>
           <label className="field">
             Last name
-            <input type="text" name='lastname' required value={""} />
+            <input type="text" name='lastName' required value={values.lastName} onChange={update} />
           </label>
           <label className="field">
             Email
-            <input type="email" name='email' required value={""} />
+            <input type="email" name='email' required value={values.email} onChange={update} />
           </label>
           <label className="field">
             Phone number
-            <input type="tel" name='phone' required value={""}  placeholder='+234 703 589 5527'/>
+            <input type="tel" name='phone' required value={values.phone} onChange={update}  placeholder='+234 703 589 5527'/>
           </label>
-          <label className="field">
+          {!isDoctor && (
+            <label className="field">
             Date of Birth
-            <input type="date" name='dateofbirth' required value={""} max={""} />
+            <input type="date" name='dateOfBirth' required value={values.dateOfBirth} onChange={update} max={""} />
           </label>
-          <label className="field">
+          )}
+          {isDoctor && (
+            <>
+             <label className="field">
             Specialty
-            <input type="text" name='specialty' required value={""} />
+            <input type="text" name='specialty' required value={values.specialty} onChange={update} />
           </label>
           <label className="field">
             MDCN License Number
-            <input type="text" name='mdcnNumber' required value={""}  placeholder='MDCN/R/12345'/>
+            <input type="text" name='mdcnNumber' required value={values.mdcnNumber} onChange={update}  placeholder='MDCN/R/12345'/>
             <span className="small muted">An admin checks this before your profile goes live.</span>
           </label>
+            </>
+          )}
           <label className="field">
             Password
-            <input type="password" name='password' required value={""} minLength={8} />
+            <input type="password" name='password' required value={values.password} onChange={update} minLength={8} />
           </label>
-          <button className="btn btn-block">Create account</button>
+          {error && <p className='error' role='alert'>{error}</p>}
+          <button className="btn btn-block" disabled={saving}>{saving ? 'Creating account' : 'Create account'}</button>
           <p className="small center">Already have an account? <Link to="/login">Log in</Link></p>
         </div>
       </form>

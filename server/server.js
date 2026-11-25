@@ -2,10 +2,15 @@ import 'dotenv/config';
 import express from 'express'
 import { connectDB } from './config/db.js';
 import authRoutes from "./routes/authRoutes.js"
+import cors from "cors";
 
 // Create and configure an express application
 const app = express();
 const PORT = process.env.PORT || 8000;
+
+app.use(cors({
+    origin: process.env.CLIENTS_URL || 'http://loalhost:5173'
+}));
 
 app.use(express.json());
 
