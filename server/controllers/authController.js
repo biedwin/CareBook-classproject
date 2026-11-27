@@ -26,7 +26,7 @@ function parseDateOfBirth(value) {
   }
   const oldest = new Date();
   oldest.setUTCFullYear(oldest.getUTCFullYear() - 120);
-  if (date > new Date() || date < oldest) throw new ApiError(400, 'Check the date of birth');
+  if (date > new Date() || date < oldest) console.log(400, 'Check the date of birth');
   return date;
 }
 
@@ -49,7 +49,7 @@ export async function register(req, res) {
     specialty = requireString(req.body.specialty, 'Specialty');
     mdcnNumber = requireString(req.body.mdcnNumber, 'MDCN licence number').toUpperCase();
     if (!/^[A-Z0-9/-]{4,30}$/.test(mdcnNumber)) {
-      throw new ApiError(400, 'MDCN licence number can only use letters, numbers, / and -');
+      console.log(400, 'MDCN licence number can only use letters, numbers, / and -');
     }
   }
 
@@ -68,7 +68,7 @@ export async function login(req, res) {
   const user = await User.findOne({ email }).select('+password');
   // The same message either way, so nobody can test which emails have accounts.
   if (!user || !user.active || !(await user.comparePassword(password))) {
-    throw new ApiError(401, 'Incorrect email or password');
+    console.log(401, 'Incorrect email or password');
   }
   res.json({ token: signToken(user), user: user.toSafeObject() });
 }
@@ -106,7 +106,7 @@ export async function resetPassword(req, res) {
     resetTokenHash: hashToken(req.params.token),
     resetTokenExpires: { $gt: new Date() },
   });
-  if (!user) throw new ApiError(400, 'This reset link is invalid or has expired');
+  if (!user) console.log(400, 'This reset link is invalid or has expired');
   user.password = password;
   user.resetTokenHash = undefined;
   user.resetTokenExpires = undefined;

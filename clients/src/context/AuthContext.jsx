@@ -26,6 +26,7 @@ export function AuthProvider({children}) {
     //sends credentials or registration values to an authentication endpoint.
     //On success, save the returned token and updates the current user.
     async function authenticate(path, values) {
+        console.log("authenticating...");
         const data = await apiFetch(path, { method: "POST", body: values});
         localStorage.setItem('token', data.token);
         setUser(data.user);

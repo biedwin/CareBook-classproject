@@ -3,6 +3,8 @@ import AuthLayout from './layouts/AuthLayout'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { BiHide } from "react-icons/bi";
+import { BiShow } from "react-icons/bi";
 
 const START = {
   firstName: '', lastName: '', email: '', phone: '', dateOfBirth: '', password: '',
@@ -31,6 +33,7 @@ function Register() {
   const [values, setValues] = useState({ ...START, role: searchParams.get('role') === 'doctor' ? 'doctor' : 'patient' });
   const [error, setError] = useState('');
   const [saving, setSaving] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const update = (e) => setValues({ ...values, [e.target.name]: e.target.value });
   const isDoctor = values.role === 'doctor';
@@ -47,7 +50,7 @@ function Register() {
     const body = isDoctor ? { ...common, specialty, mdcnNumber } : { ...common, dateOfBirth };
     try {
       await register(body);
-      navigate('/dashboard', { replace: true });
+      navigate('/login', { replace: true });
     } catch (err) {
       setError(err.message);
       setSaving(false);
@@ -109,10 +112,16 @@ function Register() {
           </label>
             </>
           )}
-          <label className="field">
-            Password
-            <input type="password" name='password' required value={values.password} onChange={update} minLength={8} />
-          </label>
+          <div className="file">
+            <label className="register-password">Password</label>
+            <div className="password-field">
+               <input type={showPassword ? "text" : "password"} name='password' required value={values.password} onChange={update} minLength={8} />
+               <button className="show-Password" onClick={() => setShowPassword(!showPassword)}>
+                 {showPassword ? <BiHide /> : <BiShow />}
+               </button>
+            </div>
+            <PasswordStrength password={values.password} />
+          </div>
           {error && <p className='error' role='alert'>{error}</p>}
           <button className="btn btn-block" disabled={saving}>{saving ? 'Creating account' : 'Create account'}</button>
           <p className="small center">Already have an account? <Link to="/login">Log in</Link></p>

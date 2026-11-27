@@ -1,6 +1,6 @@
 import React from 'react'
 import {Link, NavLink} from "react-router-dom"
-import logo from "../../assets/logo/logo.svg"
+import logo from "../../../assets/logo/logo.svg"
 import { useState } from 'react'
 import { IoClose } from "react-icons/io5";
 import { IoMdMenu } from "react-icons/io";
@@ -15,8 +15,9 @@ import { FaStethoscope } from "react-icons/fa";
 import { FiUsers } from "react-icons/fi";
 import { FaUndo } from "react-icons/fa";
 import { FaChartLine } from "react-icons/fa6";
-import logoOnDark from "../../assets/logo/logo-ondark.svg"
+import logoOnDark from "../../../assets/logo/logo-on-dark.svg"
 import { MdLogout } from "react-icons/md";
+import { useAuth } from '../../../context/AuthContext';
 
 const ASIDEMENUS = {
     patient: {
@@ -59,6 +60,7 @@ const ROLE_LABEL = {
     admin: "Administrator"
 }
 function DashboardLayout({role}) {
+    const {user, logout} = useAuth();
     const [open, setOpen] = useState(false);
     const menu = ASIDEMENUS[role]
 
@@ -89,7 +91,7 @@ function DashboardLayout({role}) {
                 })
             }
             </nav>
-            <button className="dash-logout">
+            <button className="dash-logout" onClick={logout}>
                 <MdLogout />
                 <span className="sr-only">Log out</span>
             </button>

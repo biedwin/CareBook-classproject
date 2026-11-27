@@ -485,6 +485,18 @@ a{
   margin-bottom: 1rem;
   font-weight: 600;
 }
+
+.password-field {
+  display: flex;
+  align-items: center;
+}
+
+.show-password {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
 input, select, textarea {
   display: block;
   width: 100%;

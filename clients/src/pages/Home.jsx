@@ -1,8 +1,8 @@
 import React from 'react'
-import SearchBar from '../componenets/Searchbar'
+import SearchBar from '../components/Searchbar'
 import { doctorsDetails } from '../data/sampleDoctors'
 import { doctorSpecialties } from '../data/specialties'
-import Avatar from '../componenets/Avatar'
+import Avatar from '../components/Avatar'
 import { TiTick } from "react-icons/ti";
 import { FaSearch } from "react-icons/fa";
 import { SlCalender } from "react-icons/sl";
